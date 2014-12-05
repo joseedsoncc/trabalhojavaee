@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title><h:outputText
+			value="#{msg['page.usuariosEditar.title']}" /></title>
+</h:head>
+<h:body>
+	
+	<h:form id="incluedeMenu">
+		<div id="menu">
+			<ui:include src="/menu.xhtml" />
+		</div>
+	</h:form>
+	
+	
+	<h:form id="form">
+    <p:panel id="panel" header="Usuários Insert/Update" style="margin-bottom:10px;">
+        <p:messages id="messages" />
+        <h:panelGrid columns="3" cellpadding="6">
+            
+            <p:outputLabel for="idInput" value="#{msg['page.usuarios.label.id']}:" />
+			<p:inputText id="idInput" value="#{usuarioMB.usuario.id}" disabled="true" />
+			<p:message for="idInput" 
+				errorStyle="color: red;" />
+            
+			
+			<p:outputLabel for="cpfInput"
+				value="#{msg['page.usuarios.label.cpf']}:" />
+			<p:inputText id="cpfInput" value="#{usuarioMB.usuario.cpf}" label="Surname">
+				<f:converter converterId="converters.CpfConverter" />
+				<f:validator validatorId="validators.CpfValidator" />
+				<f:validateRequired />
+				<f:validateLength minimum="11" maximum="14" />
+				</p:inputText>
+			<p:message for="cpfInput" 
+				errorStyle="color: red;" />
+            
+           <p:outputLabel for="loginInput"
+				value="#{msg['page.usuarios.label.login']}:" />
+			<p:inputText id="loginInput"
+				value="#{usuarioMB.usuario.login}"
+				required="true" label="Surname" />
+			<p:message for="loginInput" errorStyle="color: red;"/>
+ 
+            <p:outputLabel for="nomeInput"
+				value="#{msg['page.usuarios.label.nome']}:" />
+			<p:inputText id="nomeInput"
+				value="#{usuarioMB.usuario.nome}" required="true" label="Surname"/>
+			<p:message for="nomeInput" />
+            
+            <h:outputLabel for="senhaInput"
+				value="#{msg['page.usuarios.label.senha']}:"  label="Surname"/>
+			<h:inputText id="senhaInput" value="#{usuarioMB.usuario.senha}">
+				<f:validateRequired />
+				<f:validateLength minimum="6" maximum="10" />
+			</h:inputText>
+			<p:message for="senhaInput" />
+            
+            <p:outputLabel for="emailInput" value="#{msg['page.usuarios.label.email']}:" />
+            <p:inputText id="emailInput" value="#{usuarioMB.usuario.email}" required="true" size="25" label="Surname"/>
+            <p:message for="emailInput" />
+            
+            <p:outputLabel for="dataNascimentoInput" value="#{msg['page.usuarios.label.dataNascimento']}:" />
+			<p:calendar id="dataNascimentoInput" value="#{usuarioMB.usuario.dataNascimento}" showOn="button" required="true" label="Surname" />
+			<!-- <f:convertDateTime pattern="#{msg['commons.padraoData']}" /> -->			
+            <p:message for="dataNascimentoInput" />
+            
+            
+            
+        </h:panelGrid>
+    </p:panel>
+ 
+    <p:toolbar>
+        <f:facet name="left">
+            <p:commandButton value="Salvar" update="panel" actionListener="#{usuarioMB.salvar}" style="margin-right:20px;" />
+        </f:facet>
+ 
+        <f:facet name="right">
+            <p:commandButton value="Voltar"  action="usuarios?faces-redirect=true" style="margin-right:20px;" immediate="true"/>
+      
+        </f:facet>
+    </p:toolbar>
+
+</h:form>
+</h:body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title><h:outputText value="#{msg['page.usuarios.title']}" />
+	</title>
+
+</h:head>
+
+<h:body>
+
+<h:form id="incluedeMenu">
+		<div id="menu">
+			<ui:include src="/menu.xhtml" />
+		</div>
+	</h:form>
+	
+
+	<h:form>
+    <p:dataTable var="usuario" value="#{dtPaginatorView.usuarios}" rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
+        
+        <p:column id="cpfUsuario" headerText="#{msg['page.usuarios.label.cpf']}" style="text-align: center;">
+            <h:commandLink action="usuariosEditar">
+					<h:outputText value="#{usuario.cpf}"
+						converter="converters.CpfConverter" />   
+					<f:setPropertyActionListener 
+						target="#{usuarioMB.usuario}"
+						value="#{usuario}" />
+				</h:commandLink>
+        </p:column>
+ 
+        <p:column id="loginUsuario" headerText="#{msg['page.usuarios.label.login']}" style="text-align: center;">
+              <h:outputText value="#{usuario.login}" />
+        </p:column>
+ 
+        <p:column id="emailUsuario" headerText="#{msg['page.usuarios.label.email']}" style="text-align: center;">
+            <h:outputLink value="mailto:#{usuario.email}">
+					<h:outputText value="#{usuario.email}" />
+				</h:outputLink>
+        </p:column>
+ 
+        <p:column id="dataNascimentoUsuario" headerText="#{msg['page.usuarios.label.dataNascimento']}" style="text-align: center;">
+            	<h:outputText value="#{usuario.dataNascimento}">
+					<f:convertDateTime pattern="#{msg['commons.padraoData']}" />
+				</h:outputText>
+        </p:column>
+        
+        <p:column id="btnExcuir" style="text-align: center;">
+           <f:facet name="header">
+					<h:outputText value=" " />
+				</f:facet>
+				<p:commandButton action="#{usuarioMB.excluir}"
+					value="#{msg['commons.excluir']}" rendered="true">
+					<f:setPropertyActionListener 
+						target="#{usuarioMB.usuario}"
+						value="#{usuario}" />
+				</p:commandButton>
+        </p:column> 
+    </p:dataTable>
+    
+    <p:commandButton action="#{usuarioMB.novo}" value="#{msg['commons.novo']}" />
+	<p:commandButton action="/index?faces-redirect=true"
+        	value="#{msg['commons.voltar']}" immediate="true"/>
+</h:form>
+	
+</h:body>
+</html>

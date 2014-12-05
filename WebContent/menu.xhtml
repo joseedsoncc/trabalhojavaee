@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+<body>
+
+<p:megaMenu orientation="#{megaMenuView.orientation}" style="margin-top:20px">
+    <p:submenu label="#{msg['page.usuarios.title']}" icon="ui-icon-check">
+        <p:column>
+            <p:submenu label="#{msg['page.usuarios.title']}">
+                <p:menuitem value="Cadastros" action="/paginas/usuario/usuarios" immediate="true"/>
+            </p:submenu>
+            <p:submenu label="Relatórios">
+                <p:menuitem value="Relatórios" url="#" />
+            </p:submenu>
+        </p:column>
+       
+    </p:submenu>
+    
+    <p:submenu label="#{msg['page.guess.title']}" icon="ui-icon-check">
+        <p:column>
+            <p:submenu label="#{msg['page.guess.title']}">
+                <p:menuitem value="Começar" action="/guess?faces-redirect=true" immediate="true"/>
+            </p:submenu>
+        </p:column>
+       
+    </p:submenu>
+    
+    <p:submenu label="#{msg['page.ajuda.title']}" icon="ui-icon-check">
+        <p:column>
+            <p:submenu label="#{msg['page.ajuda.title']}">
+                <p:menuitem value="Ajuda Online" action="/ajuda?faces-redirect=true" immediate="true"/>
+            </p:submenu>
+        </p:column>
+       
+    </p:submenu>
+    
+    <p:menuitem value="Quit" url="http://www.primefaces.org" icon="ui-icon-close" style="margin-right:20px;"/>
+</p:megaMenu>
+
+</body>
+
+</html>

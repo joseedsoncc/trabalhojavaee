@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources xmlns="http://www.ironjacamar.org/doc/schema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.ironjacamar.org/doc/schema http://www.ironjacamar.org/doc/schema/datasources_1_2.xsd">
+	
+
+    <datasource jndi-name="java:jboss/datasources/javaee" pool-name="javaee">
+        <connection-url>jdbc:mysql://localhost:3306/javaee</connection-url>
+        <driver>mysql</driver>
+        <pool>
+            <min-pool-size>5</min-pool-size>
+            <max-pool-size>15</max-pool-size>
+            <prefill>true</prefill>
+        </pool>
+        <security>
+            <user-name>root</user-name>
+            <password>ph111005</password>
+        </security>
+    </datasource>
+	
+</datasources>
