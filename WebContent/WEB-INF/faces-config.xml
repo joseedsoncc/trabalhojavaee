@@ -37,4 +37,9 @@
 		</locale-config>
 		<message-bundle>javax.faces.FacesMessages</message-bundle>
 	</application>
+
+	<lifecycle>
+		<phase-listener>br.com.trabalhojavaee.listeners.LoginPhaseListener</phase-listener>
+	</lifecycle>
+	
 </faces-config>
