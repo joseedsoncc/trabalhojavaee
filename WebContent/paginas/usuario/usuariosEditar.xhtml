@@ -1,23 +1,14 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<title><h:outputText
-			value="#{msg['page.usuariosEditar.title']}" /></title>
-</h:head>
-<h:body>
-	
-	<h:form id="incluedeMenu">
-		<div id="menu">
-			<ui:include src="/menu.xhtml" />
-		</div>
-	</h:form>
-	
-	
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/padrao.xhtml"
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+<ui:define name="title">#{msg['page.usuariosEditar.title']}</ui:define>
+
+<ui:define name="body">
 	<h:form id="form">
     <p:panel id="panel" header="Usuários Insert/Update" style="margin-bottom:10px;">
         <p:messages id="messages" />
@@ -27,7 +18,6 @@
 			<p:inputText id="idInput" value="#{usuarioMB.usuario.id}" disabled="true" />
 			<p:message for="idInput" 
 				errorStyle="color: red;" />
-            
 			
 			<p:outputLabel for="cpfInput"
 				value="#{msg['page.usuarios.label.cpf']}:" />
@@ -87,5 +77,5 @@
     </p:toolbar>
 
 </h:form>
-</h:body>
-</html>
+</ui:define>
+</ui:composition>
