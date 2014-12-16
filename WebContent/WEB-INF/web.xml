@@ -22,5 +22,9 @@
 		<param-name>primefaces.THEME</param-name>
 		<param-value>dark-hive</param-value>
 	</context-param>
+	
+	<listener>
+   		<listener-class>br.com.trabalhojavaee.listeners.RequestListener</listener-class>
+	</listener>
 
 </web-app>
