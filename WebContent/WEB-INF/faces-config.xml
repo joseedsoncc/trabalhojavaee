@@ -37,4 +37,20 @@
 		</locale-config>
 		<message-bundle>javax.faces.FacesMessages</message-bundle>
 	</application>
+	
+	<converter>
+		<converter-id>converters.CepConverter</converter-id>
+		<converter-class>br.com.trabalhojavaee.converters.CepConverter</converter-class>
+	</converter>
+	<validator>
+		<validator-id>validators.CepValidator</validator-id>
+		<validator-class>br.com.trabalhojavaee.validators.CepValidator</validator-class>
+	</validator> 
+	 
+	<!--
+	<converter>
+		<converter-id>converters.CpfConverter</converter-id>
+		<converter-class>br.com.cursojsf.view.converters.CpfConverter</converter-class>
+	</converter>
+	-->
 </faces-config>
