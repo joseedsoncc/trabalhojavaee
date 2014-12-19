@@ -15,7 +15,11 @@ import br.com.trabalhojavaee.model.Usuario;
 public class UsuarioDao extends GenericDao<Usuario> {
 
 	public void salvarUsuario(Usuario usuario) {
-		super.salvarEntidade(usuario);
+		if(usuario.getId() != null) {
+			super.atualizarEntidade(usuario); 
+		} else {
+			super.inserirEntidade(usuario);
+		}
 	}
 	
 	public List<Usuario> selecionarTodos() {

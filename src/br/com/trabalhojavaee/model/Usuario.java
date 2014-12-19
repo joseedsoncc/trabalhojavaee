@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -48,11 +50,16 @@ public class Usuario extends BaseModel implements Serializable {
 	@Column(name="email")
 	private String email;
 	
+	@OneToOne
+	@JoinColumn(name="cep_id")
+	private Cep cep;
+	
 	/**
 	 * Construtor vazio.
 	 */
 	public Usuario() {
 		super();
+		this.cep = new Cep();
 	}
 	
 	/**
@@ -66,14 +73,9 @@ public class Usuario extends BaseModel implements Serializable {
 
     /**
      * Construtor completo.
-     * @param nome
-     * @param login
-     * @param senha
-     * @param dataNascimento
-     * @param email
+     * @param nome  @param login  @param senha  @param dataNascimento  @param email  @param cpf  @param cep
      */
-	public Usuario(String nome, String login, String senha,
-			Date dataNascimento, String email,String cpf) {
+	public Usuario(String nome, String login, String senha, Date dataNascimento, String email, String cpf, Cep cep) {
 		super();
 		this.nome = nome;
 		this.login = login;
@@ -81,6 +83,7 @@ public class Usuario extends BaseModel implements Serializable {
 		this.dataNascimento = dataNascimento;
 		this.email = email;
 		this.cpf = cpf;
+		this.cep = cep;
 	}
 
 	public Long getId() {
@@ -139,10 +142,18 @@ public class Usuario extends BaseModel implements Serializable {
 		this.email = email;
 	}
 	
-	 public void validate() {
-	        if(nome == null || login == null){
-	            throw new IllegalArgumentException("Nome e Login devem ser preenchidos.");
-	        }
-	    }
+	public Cep getCep() {
+		return cep;
+	}
+	
+	public void setCep(Cep cep) {
+		this.cep = cep;
+	}
+	
+	public void validate() {
+        if(nome == null || login == null){
+            throw new IllegalArgumentException("Nome e Login devem ser preenchidos.");
+        }
+    }
 
 }

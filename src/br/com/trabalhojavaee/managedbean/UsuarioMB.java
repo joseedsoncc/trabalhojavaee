@@ -18,10 +18,9 @@ public class UsuarioMB {
 	 */
 	@EJB
 	private UsuarioService usuarioService;
-
 	private List<Usuario> usuarios;
-	
 	private Usuario usuario = new Usuario();
+	private String cep;
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -56,4 +55,9 @@ public class UsuarioMB {
 		usuarios = usuarioService.selecionarTodos();
 		return "usuarios";
 	}
+	
+	public String getCep() {
+		return cep;
+	}
+	
 }

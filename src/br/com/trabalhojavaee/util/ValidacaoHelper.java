@@ -75,4 +75,14 @@ public class ValidacaoHelper {
 		// resto.
 		return nDigVerific.equals(nDigResult);
 	}
+	
+	public static boolean validaCep(String cep) {
+		if (cep.length() == 8) {
+			cep = cep.substring(0, 5) + "-" + cep.substring(5, 8);
+
+		}
+		return cep.matches("[0-9]{5}-[0-9]{3}");
+	}
+
+	
 }

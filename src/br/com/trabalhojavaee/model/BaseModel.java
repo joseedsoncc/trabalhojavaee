@@ -13,9 +13,7 @@ import javax.persistence.Inheritance;
  */
 @Inheritance
 public class BaseModel {
-	/**
-	 * Cidade.
-	 */
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id")
