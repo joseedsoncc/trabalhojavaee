@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebFilter(filterName="exceptionFilter", urlPatterns = {"/*"})
+@WebFilter(filterName="ExceptionFilter", urlPatterns = {"/paginas/usuario/*" , "/*"})
 public class ExceptionFilter implements Filter {
 	public void init(FilterConfig config) throws ServletException {
 	}
@@ -20,12 +20,15 @@ public class ExceptionFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		try {
+			
 			chain.doFilter(request, response);
+			
 		} catch (Exception e) {
 			HttpServletRequest httpRequest = (HttpServletRequest) request;
 			HttpServletResponse httpResponse = (HttpServletResponse) response;
-			System.out.println("Erro ao processar requisicao.");
-			httpResponse.sendRedirect(httpRequest.getContextPath() + "/error.xhtml");
+			System.out.println("Ocorreu um erro durante o processamento da requisicao.");
+			httpResponse.sendRedirect(httpRequest.getContextPath()
+					+ "/error.xhtml");
 		}
 	}
 }
