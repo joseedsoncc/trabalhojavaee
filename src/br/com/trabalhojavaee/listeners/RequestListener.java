@@ -50,6 +50,7 @@ public class RequestListener implements ServletRequestListener {
 			if (!part2.equals("javax.faces.resource")){
 				acessosPagina.put(path, getContador(path, acessosPagina));
 				request.setAttribute("acessosPagina", acessosPagina);
+				System.out.println("Contador de acessos: " + acessosPagina);
 			}else{
 				
 				System.out.println("Sair!");

@@ -26,16 +26,4 @@
 	<listener>
    		<listener-class>br.com.trabalhojavaee.listeners.RequestListener</listener-class>
 	</listener>
-
-	<filter>
-		<filter-name>exceptionFilter</filter-name>
-		<filter-class>br.com.trabalhojavaee.filter.ExceptionFilter</filter-class>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>exceptionFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-		<dispatcher>FORWARD</dispatcher>
-    	<dispatcher>REQUEST</dispatcher>
-	</filter-mapping>
 </web-app>
