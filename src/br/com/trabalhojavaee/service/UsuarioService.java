@@ -39,26 +39,18 @@ public class UsuarioService {
 	/** {@inheritDoc} */
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void excluirUsuario(Usuario usuario) {
-		try {
-			usuarioDao.excluirUsuario(usuario);
-			FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		usuarioDao.excluirUsuario(usuario);
+		//FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
 	}
 
 	/** {@inheritDoc} */
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void salvarUsuario(Usuario usuario) {
-		try {
-			cepDao.salvarCep(usuario.getCep());
-			Cep cepSalvo = cepDao.selecionar(usuario.getCep());
-			usuario.setCep(cepSalvo);
-			usuarioDao.salvarUsuario(usuario);
-			FacesContext.getCurrentInstance().getExternalContext().redirect("usuarios.xhtml");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		cepDao.salvarCep(usuario.getCep());
+		Cep cepSalvo = cepDao.selecionar(usuario.getCep());
+		usuario.setCep(cepSalvo);
+		usuarioDao.salvarUsuario(usuario);
+		//FacesContext.getCurrentInstance().getExternalContext().redirect("usuarios.xhtml");
 	}
 
 	/** {@inheritDoc} */
