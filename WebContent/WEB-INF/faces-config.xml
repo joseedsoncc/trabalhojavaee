@@ -42,6 +42,10 @@
 		<phase-listener>br.com.trabalhojavaee.listeners.LoginPhaseListener</phase-listener>
 	</lifecycle>
 	
+	<lifecycle>
+		<phase-listener>br.com.trabalhojavaee.listeners.LogAcessoPhaseListener</phase-listener>
+	</lifecycle>
+	
 	<converter>
 		<converter-id>converters.CepConverter</converter-id>
 		<converter-class>br.com.trabalhojavaee.converters.CepConverter</converter-class>
