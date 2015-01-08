@@ -9,56 +9,126 @@ xmlns:p="http://primefaces.org/ui">
 <ui:define name="title">#{msg['page.usuarios.title']}</ui:define>
 <ui:define name="body">
 
-	<h:form id="formListaId">
-    <p:dataTable var="usuario" value="#{dtPaginatorView.usuarios}" rows="10"
+<p:layout fullPage="true">
+           
+            <p:layoutUnit position="center">
+                <h1>Gerenciador de Usuarios</h1>
+                <br />
+                <h:form id="form1">
+                    <p:commandButton id="btAlteraUsuariolista" actionListener="#{usuarioMB.novo}" value="Novo Usuario" update=":form3:infosUsuario" onclick="PF('dialogGerUsuario').show();" type="button" />
+                </h:form>
+                <br/>
+                <h:form id="form2">
+                     <p:dataTable id="tabela" var="usuario" value="#{dtPaginatorView.usuarios}" rows="10"
                          paginator="true"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15">
-        
-        <p:column id="cpfUsuario" headerText="#{msg['page.usuarios.label.cpf']}" style="text-align: center;">
-            <h:commandLink action="usuariosEditar">
-					<h:outputText value="#{usuario.cpf}"
-						converter="converters.CpfConverter" />   
-					<f:setPropertyActionListener 
-						target="#{usuarioMB.usuario}"
-						value="#{usuario}" />
-				</h:commandLink>
-        </p:column>
+                   		<p:column>
+                            <f:facet name="header">
+                                <h:outputText value="CPF:"/>
+                            </f:facet>
+                           	 <h:outputText value="#{usuario.cpf}" converter="converters.CpfConverter" />   
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Login:"/>
+                            </f:facet>
+                            <h:outputText value="#{usuario.login}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Email:"/>
+                            </f:facet>
+                            <h:outputText value="#{usuario.email}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Data Nascimento"/>
+                            </f:facet>
+                            <h:outputText value="#{usuario.dataNascimento}"/>
+                        </p:column>
+                        
+                         <p:column>
+                           <f:facet name="header">
+                                <h:outputText value="Alterar"/>
+                            </f:facet>
+                         <p:commandButton id="btAlteraUsuariolista" action="#" value="Alterar" update=":form3:infosUsuario" onclick="PF('dialogGerUsuario').show();" type="button" >
+                             <f:setPropertyActionListener 
+								target="#{usuarioMB.usuario}"
+								value="#{usuario}" 
+								for="btAlteraUsuariolista"/> 
+                          </p:commandButton>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Excluir"/>
+                            </f:facet>
+                            <p:commandButton id="btExcluiUsuariolista" value="Excluir" update=":form3:infosUsuario" actionListener="#{usuarioMB.excluir}">
+                           		 <f:setPropertyActionListener target="#{usuarioMB.usuario}" value="#{usuario}" for="btExcluiUsuariolista"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:layoutUnit>
+        </p:layout>
  
-        <p:column id="loginUsuario" headerText="#{msg['page.usuarios.label.login']}" style="text-align: center;">
-              <h:outputText value="#{usuario.login}" />
-        </p:column>
  
-        <p:column id="emailUsuario" headerText="#{msg['page.usuarios.label.email']}" style="text-align: center;">
-            <h:outputLink value="mailto:#{usuario.email}">
-					<h:outputText value="#{usuario.email}" />
-				</h:outputLink>
-        </p:column>
- 
-        <p:column id="dataNascimentoUsuario" headerText="#{msg['page.usuarios.label.dataNascimento']}" style="text-align: center;">
-            	<h:outputText value="#{usuario.dataNascimento}">
+ 		<p:dialog header="Gerencia de Usuarios" widgetVar="dialogGerUsuario" modal="true" height="1000">
+            <h:form id="form3">
+                <h:panelGrid  id="infosUsuario" columns="3" cellpadding="5">
+               	
+               		<p:outputLabel for="cpfInput" value="#{msg['page.usuarios.label.cpf']}:" />
+				<p:inputText id="cpfInput" value="#{usuarioMB.usuario.cpf}" label="Surname">
+					<f:converter converterId="converters.CpfConverter" />
+					<f:validator validatorId="validators.CpfValidator" />
+					<f:validateRequired />
+					<f:validateLength minimum="11" maximum="14" />
+				</p:inputText>
+				<p:message for="cpfInput" errorStyle="color: red;" />
+
+				<p:outputLabel for="loginInput" value="#{msg['page.usuarios.label.login']}:" />
+				<p:inputText id="loginInput" value="#{usuarioMB.usuario.login}" required="true" label="Surname" />
+				<p:message for="loginInput" errorStyle="color: red;" />
+
+				<p:outputLabel for="nomeInput" value="#{msg['page.usuarios.label.nome']}:" />
+				<p:inputText id="nomeInput" value="#{usuarioMB.usuario.nome}" required="true" label="Surname" />
+				<p:message for="nomeInput" />
+
+				<p:outputLabel for="senhaInput" value="#{msg['page.usuarios.label.senha']}:" />
+				<p:inputText id="senhaInput" value="#{usuarioMB.usuario.senha}" label="Surname" >
+					<f:validateRequired />
+					<f:validateLength minimum="6" maximum="10" />
+				</p:inputText>
+				<p:message for="senhaInput" />
+
+				<p:outputLabel for="emailInput" value="#{msg['page.usuarios.label.email']}:" />
+				<p:inputText id="emailInput" value="#{usuarioMB.usuario.email}" required="true" size="25" label="Surname" />
+				<p:message for="emailInput" />
+
+				<p:outputLabel for="dataNascimentoInput" value="#{msg['page.usuarios.label.dataNascimento']}:" />
+				<p:calendar id="dataNascimentoInput" value="#{usuarioMB.usuario.dataNascimento}" showOn="button" required="true" label="Surname" >
 					<f:convertDateTime pattern="#{msg['commons.padraoData']}" />
-				</h:outputText>
-        </p:column>
-        
-        <p:column id="btnExcuir" style="text-align: center;">
-           <f:facet name="header">
-					<h:outputText value=" " />
-				</f:facet>
-				<p:commandButton action="#{usuarioMB.excluir}"
-					value="#{msg['commons.excluir']}" rendered="true">
-					<f:setPropertyActionListener 
-						target="#{usuarioMB.usuario}"
-						value="#{usuario}" />
-					<f:ajax execute="@form" render="@form :formListaId" />
-				</p:commandButton>
-        </p:column> 
-    </p:dataTable>
-   <hr />
-    <p:commandButton action="#{usuarioMB.novo}" value="#{msg['commons.novo']}" />
-	<p:commandButton action="/index?faces-redirect=true"
-        	value="#{msg['commons.voltar']}" immediate="true"/>
-</h:form>
+				</p:calendar>
+				<p:message for="dataNascimentoInput" />
+
+				<p:outputLabel for="cepInput" value="#{msg['page.usuarios.label.cep']}:" />
+				
+				<p:inputText id="cepInput" value="#{usuarioMB.usuario.cep}"  required="true" >					
+					<f:converter converterId="converters.CepConverter" />
+					<f:validator validatorId="validators.CepValidator" />
+				</p:inputText>
+				<p:message for="cepInput" />
+ 					<br/>
+ 					
+ 					<p:column>
+ 					<p:commandButton value="Salvar" update=":form2:tabela" actionListener="#{usuarioMB.salvar}" style="margin-right:20px;" />
+                    <p:commandButton update=":form2:tabela" oncomplete="dialogGerUsuario.hide();" actionListener="#{usuarioMB.salvar}" value="Alterar Usuario"/> 
+                    </p:column>
+ 
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
 	
 </ui:define>
 </ui:composition>

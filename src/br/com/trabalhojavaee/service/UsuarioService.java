@@ -40,7 +40,6 @@ public class UsuarioService {
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void excluirUsuario(Usuario usuario) {
 		usuarioDao.excluirUsuario(usuario);
-		//FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
 	}
 
 	/** {@inheritDoc} */
@@ -50,7 +49,6 @@ public class UsuarioService {
 		Cep cepSalvo = cepDao.selecionar(usuario.getCep());
 		usuario.setCep(cepSalvo);
 		usuarioDao.salvarUsuario(usuario);
-		//FacesContext.getCurrentInstance().getExternalContext().redirect("usuarios.xhtml");
 	}
 
 	/** {@inheritDoc} */
