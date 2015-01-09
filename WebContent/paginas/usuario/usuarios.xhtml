@@ -15,14 +15,17 @@ xmlns:p="http://primefaces.org/ui">
                 <h1>Gerenciador de Usuarios</h1>
                 <br />
                 <h:form id="form1">
-                    <p:commandButton id="btAlteraUsuariolista" actionListener="#{usuarioMB.novo}" value="Novo Usuario" update=":form3:infosUsuario" onclick="PF('dialogGerUsuario').show();" type="button" />
+                    <p:commandButton id="btNovoUsuario" actionListener="#{usuarioMB.novo}" value="Novo Usuario" update=":form3:infosUsuario" onclick="PF('dialogGerUsuario').show();" type="button" />
                 </h:form>
                 <br/>
                 <h:form id="form2">
                      <p:dataTable id="tabela" var="usuario" value="#{dtPaginatorView.usuarios}" rows="10"
+              			 selectionMode="single" selection="#{usuarioMB.usuario}" rowKey="#{usuario.id}"       
                          paginator="true"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15">
+                   		
+                   		<h:inputHidden id="idInput" value="#{usuarioMB.usuario.id}"/>
                    		<p:column>
                             <f:facet name="header">
                                 <h:outputText value="CPF:"/>
@@ -52,20 +55,18 @@ xmlns:p="http://primefaces.org/ui">
                            <f:facet name="header">
                                 <h:outputText value="Alterar"/>
                             </f:facet>
-                         <p:commandButton id="btAlteraUsuariolista" action="#" value="Alterar" update=":form3:infosUsuario" onclick="PF('dialogGerUsuario').show();" type="button" >
-                             <f:setPropertyActionListener 
-								target="#{usuarioMB.usuario}"
-								value="#{usuario}" 
-								for="btAlteraUsuariolista"/> 
+                         <p:commandButton id="btAlteraUsuariolista" actionListener="#{usuarioMB.novo}" value="Alterar" update=":form3:infosUsuario" onclick="PF('dialogGerUsuario').show();" type="button" >
+                             <f:setPropertyActionListener target="#{usuarioMB.usuario}" value="#{usuario.id}" for="btAlteraUsuariolista"/> 
                           </p:commandButton>
                         </p:column>
-                        
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Excluir"/>
                             </f:facet>
-                            <p:commandButton id="btExcluiUsuariolista" value="Excluir" update=":form3:infosUsuario" actionListener="#{usuarioMB.excluir}">
-                           		 <f:setPropertyActionListener target="#{usuarioMB.usuario}" value="#{usuario}" for="btExcluiUsuariolista"/>
+                            <p:commandButton id="btExcluiUsuariolista" value="Excluir" update=":form2:tabela" actionListener="#{usuarioMB.excluir}" >
+<!--                            		 <f:setPropertyActionListener target="#{usuarioMB.usuario}" value="#{usuario.id}" for="btExcluiUsuariolista"/> -->
+								<p:collector value="#{usuario}" removeFrom="#{usuarioMB.usuario}" />
                             </p:commandButton>
                         </p:column>
                     </p:dataTable>
@@ -74,11 +75,12 @@ xmlns:p="http://primefaces.org/ui">
         </p:layout>
  
  
- 		<p:dialog header="Gerencia de Usuarios" widgetVar="dialogGerUsuario" modal="true" height="1000">
+ 		<p:dialog header="Gerencia de Usuarios" widgetVar="dialogGerUsuario" modal="true" height="1000" dynamic="true">
             <h:form id="form3">
                 <h:panelGrid  id="infosUsuario" columns="3" cellpadding="5">
+               	<h:inputHidden id="idInput" value="#{usuarioMB.usuario.id}"/>
                	
-               		<p:outputLabel for="cpfInput" value="#{msg['page.usuarios.label.cpf']}:" />
+               	<p:outputLabel for="cpfInput" value="#{msg['page.usuarios.label.cpf']}:" />
 				<p:inputText id="cpfInput" value="#{usuarioMB.usuario.cpf}" label="Surname">
 					<f:converter converterId="converters.CpfConverter" />
 					<f:validator validatorId="validators.CpfValidator" />
@@ -122,8 +124,8 @@ xmlns:p="http://primefaces.org/ui">
  					<br/>
  					
  					<p:column>
- 					<p:commandButton value="Salvar" update=":form2:tabela" actionListener="#{usuarioMB.salvar}" style="margin-right:20px;" />
-                    <p:commandButton update=":form2:tabela" oncomplete="dialogGerUsuario.hide();" actionListener="#{usuarioMB.salvar}" value="Alterar Usuario"/> 
+ 						<p:commandButton value="Salvar" update=":form2:tabela" actionListener="#{usuarioMB.salvar}" style="margin-right:20px;" 
+ 							onclick="PF('dialogGerUsuario').hide();"/>
                     </p:column>
  
                 </h:panelGrid>
